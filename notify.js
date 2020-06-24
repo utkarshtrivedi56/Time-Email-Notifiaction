@@ -1,6 +1,7 @@
 var nodemailer = require('nodemailer');
 var Web3 = require('web3');
 
+
 if (typeof web3 !== 'undefined') {
     web3 = new Web3(web3.currentProvider);
 } else {
@@ -9,10 +10,53 @@ if (typeof web3 !== 'undefined') {
 
 web3.eth.defaultAccount = web3.eth.accounts[0];
 
-var ContractABI = web3.eth.contract("Deployed contract ABI");
+var ContractABI = web3.eth.contract("[
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "res",
+          "type": "bool"
+        }
+      ],
+      "name": "timeMatch",
+      "type": "event"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "currentTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "getTime",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]");
 
-var ContractAddr = ContractABI.at('CONTRACT ADDRESS');
-
+var ContractAddr = ContractABI.at('0x776f8d6a7e8570a943d2102f84c85878deeb2684'); //contract address deployed at ropsten network
 var Event = ContractAddr.timeMatch();
 
 Event.watch(function(error, result){
