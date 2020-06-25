@@ -1,5 +1,5 @@
-var nodemailer = require('nodemailer');
-var Web3 = require('web3');
+const nodemailer = require('nodemailer');
+const Web3 = require('web3');
 
 
 if (typeof web3 !== 'undefined') {
